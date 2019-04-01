@@ -1,0 +1,202 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Objects/Character.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/slot_01.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/scale_02_07.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/scale_02_06.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/scale_01_06.png" type="Texture" id=5]
+
+[sub_resource type="Gradient" id=1]
+
+colors = PoolColorArray( 0.238281, 0.238281, 0.238281, 1, 0.239216, 0.239216, 0.239216, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+
+gradient = SubResource( 1 )
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+
+animation = "attack"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+
+animation = "move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=8]
+
+states/attack/node = SubResource( 3 )
+states/attack/position = Vector2( 429, 123 )
+states/idle/node = SubResource( 4 )
+states/idle/position = Vector2( 65, 123 )
+states/move/node = SubResource( 5 )
+states/move/position = Vector2( 238, 30 )
+transitions = [ "idle", "attack", SubResource( 6 ), "attack", "idle", SubResource( 7 ) ]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
+
+
+[sub_resource type="Animation" id=10]
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 20, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+
+loop = true
+
+[sub_resource type="Animation" id=12]
+
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.988938 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 28.1, 0.0 ]
+}
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+
+[sub_resource type="RectangleShape2D" id=19]
+
+extents = Vector2( 50, 80 )
+
+[node name="Character" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -2 )
+scale = Vector2( 0.2, 0.2 )
+z_index = -1
+
+[node name="Frame" type="Sprite" parent="Sprite"]
+position = Vector2( 0, 10 )
+scale = Vector2( 2.1, 2.1 )
+z_index = 1
+texture = ExtResource( 2 )
+
+[node name="Background" type="Sprite" parent="Sprite"]
+show_behind_parent = true
+position = Vector2( -265, -250 )
+scale = Vector2( 0.258789, 525 )
+texture = SubResource( 2 )
+centered = false
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 8 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 10 )
+anims/idle = SubResource( 11 )
+anims/move = SubResource( 12 )
+
+[node name="Badge" type="Sprite" parent="."]
+position = Vector2( 0, -52 )
+scale = Vector2( 0.05, 0.05 )
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -65.0
+margin_top = 59.0
+margin_right = 582.0
+margin_bottom = 134.0
+rect_scale = Vector2( 0.2, 0.2 )
+value = 30.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="HealthBar"]
+visible = false
+margin_right = 129.0
+margin_bottom = 15.0
+rect_scale = Vector2( 5, 5 )
+text = "100/100"
+align = 1
+valign = 1
+
+[node name="SkillBar" type="TextureProgress" parent="."]
+margin_left = -65.0
+margin_top = 77.0
+margin_right = 582.0
+margin_bottom = 152.0
+rect_scale = Vector2( 0.2, 0.2 )
+value = 30.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="SkillBar"]
+visible = false
+margin_right = 129.0
+margin_bottom = 15.0
+rect_scale = Vector2( 5, 5 )
+text = "100/100"
+align = 1
+valign = 1
+
+[node name="ItemList" type="ItemList" parent="."]
+margin_left = 55.0
+margin_top = -54.0
+margin_right = 207.0
+margin_bottom = 59.0
+custom_styles/cursor = SubResource( 13 )
+custom_styles/selected_focus = SubResource( 14 )
+custom_styles/bg_focus = SubResource( 15 )
+custom_styles/cursor_unfocused = SubResource( 16 )
+custom_styles/selected = SubResource( 17 )
+custom_styles/bg = SubResource( 18 )
+max_columns = 2
+icon_mode = 0
+icon_scale = 0.2
+
+[node name="HPArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HPArea"]
+position = Vector2( 1, 21 )
+shape = SubResource( 19 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="mouse_entered" from="HPArea" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="HPArea" to="." method="_on_Area2D_mouse_exited"]

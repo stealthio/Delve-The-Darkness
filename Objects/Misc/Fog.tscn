@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fog.shader" type="Shader" id=1]
+[ext_resource path="res://Mask_Round_Light.png" type="Texture" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/color = Vector3( 0.6, 0.6, 0.6 )
+shader_param/OCTAVES = 3
+
+[node name="Fog" type="TextureRect"]
+modulate = Color( 1, 1, 1, 0.392157 )
+material = SubResource( 1 )
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+

@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Shop.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/bg_01.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/BLKCHCRY.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Graphics/button_01.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/button_02.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/text_bg_01.png" type="Texture" id=6]
+[ext_resource path="res://Overlay.tscn" type="PackedScene" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+bg_color = Color( 0.756863, 0.588235, 0.439216, 1 )
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Shop" type="CanvasLayer"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 391.229 ],
+"_edit_vertical_guides_": [ 11.9666, 538.0 ]
+}
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 521, 302 )
+texture = ExtResource( 2 )
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 43.0
+margin_top = 106.0
+margin_right = 577.0
+margin_bottom = 331.0
+rect_scale = Vector2( 1.3, 1.3 )
+custom_constants/vseparation = 75
+custom_constants/hseparation = 180
+columns = 3
+
+[node name="DescriptionPanel" type="Panel" parent="."]
+margin_left = 12.0
+margin_top = 399.0
+margin_right = 815.0
+margin_bottom = 581.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Description" type="RichTextLabel" parent="DescriptionPanel"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 800.0
+margin_bottom = 179.0
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="Confirm" type="TextureButton" parent="."]
+margin_left = 826.0
+margin_top = 400.0
+margin_right = 1251.0
+margin_bottom = 671.0
+rect_scale = Vector2( 0.45, 0.33 )
+texture_normal = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Confirm"]
+margin_left = 40.0001
+margin_top = 96.9697
+margin_right = 98.0001
+margin_bottom = 110.97
+rect_scale = Vector2( 6, 6 )
+text = "Purchase"
+
+[node name="Deny" type="TextureButton" parent="."]
+margin_left = 826.0
+margin_top = 491.0
+margin_right = 1251.0
+margin_bottom = 762.0
+rect_scale = Vector2( 0.45, 0.33 )
+texture_normal = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="Deny"]
+margin_left = 35.5553
+margin_top = 103.03
+margin_right = 93.5553
+margin_bottom = 117.03
+rect_scale = Vector2( 6, 6 )
+text = "Exit"
+align = 1
+
+[node name="Label" type="TextureRect" parent="."]
+margin_left = 253.0
+margin_top = 54.0
+margin_right = 1384.0
+margin_bottom = 204.0
+rect_scale = Vector2( 0.5, 0.3 )
+texture = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Label"]
+margin_left = 82.0
+margin_top = -10.0
+margin_right = 564.0
+margin_bottom = 75.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Shop"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Overlay" parent="." instance=ExtResource( 7 )]
+
+[connection signal="pressed" from="Confirm" to="." method="_on_Confirm_pressed"]
+[connection signal="pressed" from="Deny" to="." method="_on_Deny_pressed"]

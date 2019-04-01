@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Objects/Misc/Inventory.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/background_02.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Graphics/button_01.png" type="Texture" id=4]
+[ext_resource path="res://Fonts/Roboto_regular_32.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.482422, 0.448298, 0.356163, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[node name="Inventory" type="Popup"]
+margin_right = 1630.0
+margin_bottom = 1192.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 1120.0 ],
+"_edit_vertical_guides_": [ 1035.0 ]
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+margin_right = 1635.0
+margin_bottom = 1194.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 33.0
+margin_top = 35.0
+margin_right = 1035.0
+margin_bottom = 1118.0
+rect_min_size = Vector2( 32, 32 )
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 4
+
+[node name="Description" type="RichTextLabel" parent="."]
+margin_left = 1058.0
+margin_top = 288.0
+margin_right = 1568.0
+margin_bottom = 1114.0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+
+[node name="Use" type="TextureButton" parent="."]
+margin_left = 1057.0
+margin_top = 50.0
+margin_right = 1579.0
+margin_bottom = 275.0
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="Label" type="Label" parent="Use"]
+margin_left = 146.0
+margin_top = 35.0
+margin_right = 201.0
+margin_bottom = 73.0
+rect_scale = Vector2( 4, 4 )
+custom_fonts/font = ExtResource( 5 )
+text = "Use"
+align = 1
+valign = 1
+
+[connection signal="popup_hide" from="." to="." method="_on_Inventory_popup_hide"]
+[connection signal="pressed" from="Use" to="." method="_on_Use_pressed"]
